@@ -40,7 +40,7 @@ void loop() {
           	Serial.print('\t');
           	Serial.print("strength = ");
           	Serial.print(strength);	//output signal strength value
-          	Serial.print('\n');
+          	Serial.print('\n'); 
         }
       }
     }
