@@ -19,15 +19,15 @@ const int HEADER=0x59;//frame header of data package
 
 void setup() {
 	Serial.begin(9600);//set bit rate of serial port connecting Arduino with computer
-  Serial1.begin(115200);//set bit rate of serial port connecting LiDAR with Arduino
+	Serial1.begin(115200);//set bit rate of serial port connecting LiDAR with Arduino
 }
 
 void loop() {
   if (Serial1.available()) {	//check if serial port has data input
-    if(Serial1.read() == HEADER) {	//assess data package frame header 0x59
+  	if(Serial1.read() == HEADER) {	//assess data package frame header 0x59
 			uart[0]=HEADER;
-      if(Serial1.read() == HEADER) {	//assess data package frame header 0x59
-          uart[1]=HEADER;
+    	if(Serial1.read() == HEADER) {	//assess data package frame header 0x59
+      		uart[1]=HEADER;
           for(i=2;i<9;i++) {	//save data in array
           	uart[i]=Serial1.read();
           } 
