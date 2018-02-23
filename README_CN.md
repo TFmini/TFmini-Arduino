@@ -348,7 +348,7 @@ void loop() {
       Serial.print(TFminiTwo.strength);
       Serial.print("\t");
 
-      Serial.print(frequency);  //50~70Hz, It maybe higher if we don't print other thing. 
+      Serial.print(frequency);  //40~70Hz, It maybe higher if we don't print other thing. 
       Serial.println("Hz");
       
       TFminiOne.receiveComplete = false;
