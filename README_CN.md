@@ -132,52 +132,7 @@ void serialEvent() {
 
 ![](/Assets/TFmini-SoftSerial.png)
 
-代码如下: 
-
-```Arduino
-#include <SoftwareSerial.h>  //header file of software serial port
-
-SoftwareSerial Serial1(2,3); //define software serial port name as Serial1 and define pin2 as RX and pin3 as TX
-
-/* For Arduinoboards with multiple serial ports like DUEboard, interpret above two pieces of code and directly use Serial1 serial port*/
-
-int dist;	//actual distance measurements of LiDAR
-int strength;	//signal strength of LiDAR
-int check;	//save check value
-int i;
-int uart[9];	//save data measured by LiDAR
-const int HEADER=0x59;	//frame header of data package
-
-void setup() {
-	Serial.begin(9600);	//set bit rate of serial port connecting Arduino with computer
-	Serial1.begin(115200);	//set bit rate of serial port connecting LiDAR with Arduino
-}
-
-void loop() { 
-	if (Serial1.available()) {	//check if serial port has data input
-		if(Serial1.read() == HEADER) {	//assess data package frame header 0x59
-			uart[0]=HEADER;
-			if (Serial1.read() == HEADER) { //assess data package frame header 0x59
-				uart[1] = HEADER;
-				for (i = 2; i < 9; i++) { //save data in array
-					uart[i] = Serial1.read();
-				}
-				check = uart[0] + uart[1] + uart[2] + uart[3] + uart[4] + uart[5] + uart[6] + uart[7];
-				if (uart[8] == (check & 0xff)){ //verify the received data as per protocol
-					dist = uart[2] + uart[3] * 256;     //calculate distance value
-					strength = uart[4] + uart[5] * 256; //calculate signal strength value
-					Serial.print("dist = ");
-					Serial.print(dist); //output measure distance value of LiDAR
-					Serial.print('\t');
-					Serial.print("strength = ");
-					Serial.print(strength); //output signal strength value
-					Serial.print('\n');
-				}
-			}
-		}
-	}
-}
-```  
+代码参考 [TFmini_Arduino_SoftwareSerial](/TFmini_Arduino_SoftwareSerial). 
 
 下载程序, 运行即可.  
 
@@ -186,82 +141,7 @@ listen轮询软件串口的方法, 连接多个TFmini, 只需要接TFmini的TX�
 
 ![](/Assets/TFminis.png)  
 
-```Arduino
-#include <SoftwareSerial.h>  
-
-//SoftwareSerial port(TX, RX);
-SoftwareSerial portOne(2, 2);
-SoftwareSerial portTwo(3, 3); 
-
-void getTFminiData(SoftwareSerial* port, int* distance, int* strength, boolean* complete) {
-  static char i = 0;
-  char j = 0;
-  int checksum = 0; 
-  static int rx[9];
-
-  port->listen();
-  if(port->available()) {  
-    rx[i] = port->read();
-    if(rx[0] != 0x59) {
-      i = 0;
-    } else if(i == 1 && rx[1] != 0x59) {
-      i = 0;
-    } else if(i == 8) {
-      for(j = 0; j < 8; j++) {
-        checksum += rx[j];
-      }
-      if(rx[8] == (checksum % 256)) {
-        *distance = rx[2] + rx[3] * 256;
-        *strength = rx[4] + rx[5] * 256;
-        *complete = true;
-      }
-      i = 0;
-    } else {
-      i++;
-    } 
-  }  
-}
-
-void setup() {
-  Serial.begin(115200);
-  portOne.begin(115200);
-  portTwo.begin(115200);
-}
-
-void loop() {
-  int distance1 = 0;
-  int strength1 = 0;
-  boolean receiveComplete1 = false;
-
-  int distance2 = 0;
-  int strength2 = 0;
-  boolean receiveComplete2 = false;
-
-  while(!receiveComplete1) {
-    getTFminiData(&portOne, &distance1, &strength1, &receiveComplete1);
-    if(receiveComplete1) {
-      Serial.print(distance1);
-      Serial.print("cm\t");
-      Serial.print("strength1: ");
-      Serial.print(strength1);
-      Serial.print("\t");
-    }
-  }
-  receiveComplete1 = false;
-
-  while(!receiveComplete2) {
-    getTFminiData(&portTwo, &distance2, &strength2, &receiveComplete2);
-    if(receiveComplete2) {
-      Serial.print(distance2);
-      Serial.print("cm\t");
-      Serial.print("strength2: ");
-      Serial.println(strength2);
-    }
-  }
-  receiveComplete2 = false;
-}
-
-```
+代码参考 [TFmini_Arduino_SoftwareSerial_Multiple](/TFmini_Arduino_SoftwareSerial_Multiple). 
 
 ## TFmini_Arduino_SoftwareSerial_Multiple_Frequency
 listen轮询软件串口的方法, 连接多个TFmini, 只需要接TFmini的TX即可, RX悬空, 理论上几乎未被占用的数字IO每个都可以接一个TFmini. 对上面的代码优化, 封装, 并且加上测试频率: 
@@ -361,3 +241,16 @@ void loop() {
 
 结果如下:   
 ![Multiple_Frequency](/Assets/Multiple_Frequency.png)
+
+## TFmini_Arduino_I2C_1Master1Slave  
+从设备Arduino Uno 的RX连接一个TFmini, 读取的数据通过TX传送到电脑上 并且 通过I2C(SCL和SDA引脚)发送出去. 主设备Arduino通过I2C(SCL SDA引脚)接收从设备传来的数据, 然后把数据通过串口传输到电脑. 连接方式如下:  
+
+![I2C1M1S](/Assets/I2C1M1S.png)  
+
+代码参考 [TFmini_Arduino_I2C_1Master1Slave](/TFmini_Arduino_I2C_1Master1Slave), 其中, Slave程序下载给Arduino Uno, **注意下载程序的时候拔掉TFmini的绿线, 下完程序后再插到Uno的RX上**. Master程序下载到Arduino Due中. 
+
+读取的数据如下图:  
+
+![I2C1M1S_Data](Assets/I2C1M1S_Data.png)  
+
+左边是TFmini的100Hz数据, 右边是Due通过I2C读到的数据. 可以看到Due读取的有重复的数据, 可以稍微修改下程序, 多发送一个完成的字节即可. 同样也可看出没有其它代码时, 如果保证不丢数据, I2C接4个TFmini比较合适, 超过4个可能造成频率有一定程度的下降. 
