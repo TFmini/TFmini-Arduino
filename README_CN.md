@@ -5,8 +5,8 @@ TFmini在Arduino上的一些例子:
 * [TFmini_Arduino_HardwareSerial_Interrupt](#tfmini-arduino-hardwareserial-interrupt)  
 * [TFmini_Arduino_SoftwareSerial](#tfmini-arduino-softwareserial)
 * [TFmini_Arduino_SoftwareSerial_Multiple](#tfmini-arduino-softwareserial-multiple)
-* [TFmini_Arduino_SoftwareSerial_Multiple_Frequency](#tfmini-arduino-softwareserial-multiple-frequency)
-* [TFmini_Arduino_I2C_1Master1Slave](#tfmini-arduino-i2c-1master1slave)
+* [TFmini_Arduino_SoftwareSerial_Multiple_Frequency](#tfmini_arduino_softwareserial_multiple_frequency)
+* [TFmini_Arduino_I2C_1Master1Slave](#tfmini_arduino_i2c_1master1slave)
 
 
 
