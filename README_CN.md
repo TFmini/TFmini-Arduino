@@ -1,5 +1,16 @@
 # TFmini-Arduino
-TFmini在Arduino上的一些例子.  
+TFmini在Arduino上的一些例子: 
+
+* [TFmini_Arduino_HardwareSerial_Polling](#TFmini-Arduino-HardwareSerial-Polling)
+* [TFmini_Arduino_HardwareSerial_Interrupt](#TFmini-Arduino-HardwareSerial-Interrupt)  
+* [TFmini_Arduino_SoftwareSerial](#TFmini-Arduino-SoftwareSerial)
+* [TFmini_Arduino_SoftwareSerial_Multiple](#TFmini-Arduino-SoftwareSerial-Multiple)
+* [TFmini_Arduino_SoftwareSerial_Multiple_Frequency](#TFmini-Arduino-SoftwareSerial-Multiple-Frequency)
+* [TFmini_Arduino_I2C_1Master1Slave](#TFmini-Arduino-I2C-1Master1Slave)
+
+
+
+---    
 
 ## TFmini_Arduino_HardwareSerial_Polling  
 类似于Arduino Uno, 只有一个串口的Arduino板子, 并不妨碍我们读取TFmini的数据, 只需要连接TFmini的TX到Arduino的RX即可, 不影响Arduino的TX向PC发数据, 连接方式如下:  
@@ -65,7 +76,7 @@ void loop() {
 
 **注意下载程序的时候, 拔掉TFmini的TX, 下完程序后再插到Arduino的0(RX)上.**
 
----
+
 
 ## TFmini_Arduino_HardwareSerial_Interrupt  
 
@@ -124,7 +135,7 @@ void serialEvent() {
 
 **注意下载程序的时候, 拔掉TFmini的TX, 下完程序后再插到Arduino的0(RX)上.**  
 
----
+
 
 ## TFmini_Arduino_SoftwareSerial  
 
@@ -136,12 +147,16 @@ void serialEvent() {
 
 下载程序, 运行即可.  
 
+
+
 ## TFmini_Arduino_SoftwareSerial_Multiple  
 listen轮询软件串口的方法, 连接多个TFmini, 只需要接TFmini的TX即可, RX悬空, 理论上几乎未被占用的数字IO每个都可以接一个TFmini.  
 
 ![](/Assets/TFminis.png)  
 
 代码参考 [TFmini_Arduino_SoftwareSerial_Multiple](/TFmini_Arduino_SoftwareSerial_Multiple). 
+
+
 
 ## TFmini_Arduino_SoftwareSerial_Multiple_Frequency
 listen轮询软件串口的方法, 连接多个TFmini, 只需要接TFmini的TX即可, RX悬空, 理论上几乎未被占用的数字IO每个都可以接一个TFmini. 对上面的代码优化, 封装, 并且加上测试频率: 
@@ -241,6 +256,8 @@ void loop() {
 
 结果如下:   
 ![Multiple_Frequency](/Assets/Multiple_Frequency.png)
+
+
 
 ## TFmini_Arduino_I2C_1Master1Slave  
 从设备Arduino Uno 的RX连接一个TFmini, 读取的数据通过TX传送到电脑上 并且 通过I2C(SCL和SDA引脚)发送出去. 主设备Arduino通过I2C(SCL SDA引脚)接收从设备传来的数据, 然后把数据通过串口传输到电脑. 连接方式如下:  
