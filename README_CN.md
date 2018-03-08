@@ -80,7 +80,7 @@ void loop() {
 
 ## TFmini_Arduino_HardwareSerial_Interrupt  
 
-连接方式同上, 我们在串口时间中接收, 接收完成后, 在loop()中打印:  
+连接方式同上, 我们在串口事件中接收, 接收完成后, 在loop()中打印:  
 
 ```Arduino
 int distance = 0;
