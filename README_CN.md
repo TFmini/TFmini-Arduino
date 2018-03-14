@@ -1,5 +1,5 @@
 # TFmini-Arduino
-TFmini在Arduino上的一些例子: 
+TFmini在Arduino上的一些例子, 英文版请点击[README.md](/README.md):   
 
 * [TFmini_Arduino_HardwareSerial_Polling](#tfmini_arduino_hardwareserial_polling)
 * [TFmini_Arduino_HardwareSerial_Interrupt](#tfmini_arduino_hardwareserial_interrupt)  
@@ -11,6 +11,8 @@ TFmini在Arduino上的一些例子:
 
 
 ---    
+
+
 
 ## TFmini_Arduino_HardwareSerial_Polling  
 类似于Arduino Uno, 只有一个串口的Arduino板子, 并不妨碍我们读取TFmini的数据, 只需要连接TFmini的TX到Arduino的RX即可, 不影响Arduino的TX向PC发数据, 连接方式如下:  
