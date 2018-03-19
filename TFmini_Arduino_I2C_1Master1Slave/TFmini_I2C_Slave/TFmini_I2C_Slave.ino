@@ -12,7 +12,7 @@ typedef struct {
 	boolean receiveComplete;
 }TFmini;
 
-TFmini TFminiOne = {0, 0, false};
+TFmini TFminiOne = {0, 0, 0, 0, 0, 0, false};
 
 void getTFminiData(TFmini* tfmini) {
 	static char i = 0;

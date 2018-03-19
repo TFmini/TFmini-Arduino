@@ -12,7 +12,7 @@ typedef struct {
 	boolean receiveComplete;
 }TFmini;
 
-TFmini TFminiOne = {0, 0, false};
+TFmini TFminiOne = {0, 0, 0, 0, 0, 0, false};
 
 void setup() {
 	Wire.begin(); 	// join i2c bus (address optional for master)
