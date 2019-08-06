@@ -1,4 +1,6 @@
 # TFmini_Arduino
+**Note: also suitable for TFmini Plus**
+
 TFmini Examples on Arduino. 中文版请点击 [README_CN.md](/README_CN.md).     
 
   - [TFmini_Arduino_HardwareSerial_Polling](#tfmini_arduino_hardware_serialpolling)
