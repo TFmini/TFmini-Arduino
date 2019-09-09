@@ -1,5 +1,5 @@
 # TFmini_Arduino
-**Note: also suitable for TFmini Plus（except TFmini IIC）**
+**Note: also suitable for TFmini Plus（except TFmini I2C）**
 
 TFmini Examples on Arduino. 中文版请点击 [README_CN.md](/README_CN.md).     
 
